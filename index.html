@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crushiecakes 💗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: linear-gradient(135deg,
+        #ffc1dc, #b9a5ff, #8bd8ff, #ffc1dc);
+    background-size: 400% 400%;
+    animation: gradient 12s ease infinite;
+    font-family: 'Poppins', sans-serif;
+}
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 42px;
+    color: white;
+    text-shadow: 0 0 10px #ff69b4,
+                 0 0 20px #ff69b4;
+}
+
+h2, p, button {
+    font-family: 'Quicksand', sans-serif;
+}
+.letter {
+    font-family: 'Poppins', sans-serif;
+    background: #fffafc;
+    color: #9b416a;
+    border-radius: 16px;
+    padding: 24px 20px;
+    line-height: 1.8;
+    box-shadow: 0 10px 30px #0002;
+}
+
+.letter h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 32px;
+    color: #e75494;
+    margin-bottom: 15px;
+}
+
+.letter p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.letter .coffee-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 27px;
+    color: #e75494;
+}
+
+.coffee-emoji {
+    font-size: 28px;
+    animation: heartbeat 1.2s infinite;
+}
+@keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    text-shadow: 0 0 15px #ff4f9a;
+    animation: floatTitle 2s ease-in-out infinite;
+}
+
+@keyframes floatTitle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+.subtitle {
+    margin-bottom: 35px;
+}
+
+/* YES OR NO FRONT PAGE */
+
+.question {
+    font-size: clamp(28px, 6vw, 43px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 35px;
+    min-height: 60px;
+}
+
+.choice {
+    min-width: 110px;
+    padding: 14px 24px;
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 40px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px #0002;
+}
+
+.yes {
+    background: linear-gradient(135deg, #ff4f9a, #ff91c4);
+}
+
+.no {
+    background: linear-gradient(135deg, #9383ff, #bdaaff);
+}
+
+.no.running {
+    position: fixed;
+    z-index: 100;
+    transition: left .18s ease, top .18s ease;
+}
+
+#answer {
+    min-height: 45px;
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+/* FLOWER PAGE */
+
+#flowerPage {
+    display: none;
+}
+
+.scene {
+    position: relative;
+    width: min(340px, 90vw);
+    height: 440px;
+    margin: 0 auto;
+}
+
+/* Envelope */
+
+.envelope {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 280px;
+    max-width: 100%;
+    height: 165px;
+    transform: translateX(-50%);
+    background: #ff6fae;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px #8e4d9140;
+    z-index: 2;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #ffacd0;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    transform-origin: top;
+    transition: transform .8s ease;
+    z-index: 5;
+}
+
+.envelope::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #ff8fbd;
+    clip-path: polygon(0 100%, 0 0, 50% 60%,
+                       100% 0, 100% 100%);
+    border-radius: 8px;
+    z-index: 3;
+}
+
+.envelope.open::before {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* LETTER: stays above the bouquet */
+
+.letter {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%) translateY(0);
+    width: min(290px, 88vw);
+    min-height: 280px;
+    padding: 22px 20px;
+    color: #a52e68;
+    background: #fffafd;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px #74416b30;
+    opacity: 0;
+    visibility: hidden;
+    transition: bottom 1s ease, opacity .6s ease,
+                visibility .6s;
+}
+
+.envelope.open .letter {
+    bottom: 135px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.letter h2 {
+    font-size: 23px;
+    margin: 3px 0 16px;
+}
+
+.letter p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 10px 0;
+}
+
+.letter-heart {
+    font-size: 25px;
+    margin-top: 8px;
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* BOUQUET BELOW THE LETTER */
+
+.bouquet {
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 210px;
+    height: 205px;
+    transform: translateX(-50%) scale(.3);
+    transform-origin: bottom center;
+    opacity: 0;
+    transition: transform 1s ease, opacity .8s ease;
+    z-index: 6;
+    pointer-events: none;
+}
+
+.envelope.open .bouquet {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    transition-delay: .8s;
+}
+
+/* Stems */
+
+.stem {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    width: 5px;
+    height: 105px;
+    background: #299c62;
+    border-radius: 5px;
+    transform-origin: bottom;
+}
+
+.stem.s1 { transform: translateX(-50%) rotate(-27deg); }
+.stem.s2 { transform: translateX(-50%) rotate(-13deg); }
+.stem.s3 { transform: translateX(-50%) rotate(0deg); }
+.stem.s4 { transform: translateX(-50%) rotate(13deg); }
+.stem.s5 { transform: translateX(-50%) rotate(27deg); }
+
+/* Leaves */
+
+.leaf {
+    position: absolute;
+    width: 26px;
+    height: 13px;
+    background: #42c879;
+    border-radius: 100% 0 100% 0;
+}
+
+.leaf.l1 { left: -20px; top: 45px; transform: rotate(20deg); }
+.leaf.l2 { left: 1px; top: 65px; transform: scaleX(-1) rotate(20deg); }
+.leaf.l3 { left: -20px; top: 72px; transform: rotate(20deg); }
+.leaf.l4 { left: 1px; top: 40px; transform: scaleX(-1) rotate(20deg); }
+
+/* Five flowers */
+
+.flower-head {
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    animation: sway 3s ease-in-out infinite;
+}
+
+.flower-head.f1 { left: 8px; top: 40px; transform: rotate(-15deg); }
+.flower-head.f2 { left: 45px; top: 12px; transform: rotate(10deg); }
+.flower-head.f3 { left: 76px; top: 0; transform: rotate(-5deg); }
+.flower-head.f4 { left: 112px; top: 18px; transform: rotate(12deg); }
+.flower-head.f5 { left: 140px; top: 45px; transform: rotate(20deg); }
+
+.flower-head .petal {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 25px;
+    height: 36px;
+    border-radius: 50%;
+    transform-origin: 12px 33px;
+    background: var(--petal-color, #ff77b7);
+}
+
+.flower-head .petal:nth-child(1) { transform: rotate(0deg); }
+.flower-head .petal:nth-child(2) { transform: rotate(45deg); }
+.flower-head .petal:nth-child(3) { transform: rotate(90deg); }
+.flower-head .petal:nth-child(4) { transform: rotate(135deg); }
+.flower-head .petal:nth-child(5) { transform: rotate(180deg); }
+.flower-head .petal:nth-child(6) { transform: rotate(225deg); }
+.flower-head .petal:nth-child(7) { transform: rotate(270deg); }
+.flower-head .petal:nth-child(8) { transform: rotate(315deg); }
+
+.flower-head .center {
+    position: absolute;
+    left: 21px;
+    top: 20px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffdf69;
+    box-shadow: 0 0 8px #ffdf69;
+}
+
+@keyframes sway {
+    0%, 100% { margin-top: 0; }
+    50% { margin-top: -5px; }
+}
+
+.hint {
+    margin-top: 20px;
+    font-size: 14px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: .5; }
+}
+
+.back {
+    margin-top: 8px;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 25px;
+    background: #ff8fbd;
+    color: white;
+    cursor: pointer;
+}
+
+.floating {
+    position: fixed;
+    bottom: -35px;
+    pointer-events: none;
+    z-index: 20;
+    animation: rise linear forwards;
+}
+
+@keyframes rise {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .scene { height: 420px; }
+    .letter { min-height: 275px; }
+    .envelope.open .letter { bottom: 125px; }
+    .bouquet { transform: translateX(-50%) scale(.85); }
+    .envelope.open .bouquet {
+        transform: translateX(-50%) scale(.85);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+.no-message {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.5px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- FRONT PAGE -->
+
+<div class="container" id="frontPage">
+    <div style="font-size:35px">Hi Crush! 🤍</div>
+    <h1 class="question">Coffee Date Tayo? ☕️</h1>
+
+    <div class="buttons">
+        <button class="choice yes" onclick="sayYes()">YES</button>
+        <button class="choice no" id="noButton"
+                onclick="moveNo()">NO</button>
+    </div>
+
+    <div id="answer" aria-live="polite"></div>
+</div>
+
+<!-- FLOWERS PAGE -->
+
+<div class="container" id="flowerPage">
+    <h1>Hi pretty 🤍</h1>
+
+    <div class="scene">
+        <div class="envelope" id="envelope">
+
+            <div class="letter">
+                <h2>Dear You, 💌</h2>
+
+                <p>
+                 I genuinely enjoy spending time with you, and I’d love to make more simple memories with you. Kaya, can I treat you to coffee sometime?
+                </p>
+                <p>
+         No pressure naman, ha. Gusto lang talaga kitang makasama, kahit saglit lang, and hopefully, makapagbigay rin ako ng little reason para ngumiti ka that day. 🤍
+    </p>
+
+                <div class="letter-heart">❤️</div>
+            </div>
+
+            <!-- Bouquet -->
+            <div class="bouquet">
+
+                <div class="stem s1">
+                    <div class="leaf l1"></div>
+                </div>
+                <div class="stem s2">
+                    <div class="leaf l2"></div>
+                </div>
+                <div class="stem s3">
+                    <div class="leaf l3"></div>
+                </div>
+                <div class="stem s4">
+                    <div class="leaf l4"></div>
+                </div>
+                <div class="stem s5">
+                    <div class="leaf l1"></div>
+                </div>
+
+                <div class="flower-head f1" style="--petal-color:#ff8cbd">
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+
+                <div class="flower-head f2" style="--petal-color:#ffb7d5">
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+
+                <div class="flower-head f3" style="--petal-color:#ff69a9">
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+
+                <div class="flower-head f4" style="--petal-color:#c7a5ff">
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+
+                <div class="flower-head f5" style="--petal-color:#ff9eac">
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="hint" id="hint">💌 Tap the envelope to open your letter 💌</p>
+    <button class="back" onclick="goBack()">↩ Back to question</button>
+</div>
+
+<script>
+const noButton = document.getElementById("noButton");
+const envelope = document.getElementById("envelope");
+const hint = document.getElementById("hint");
+
+function sayYes() {
+    document.getElementById("frontPage").style.display = "none";
+    document.getElementById("flowerPage").style.display = "block";
+
+    for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 120);
+    }
+}
+
+function moveNo() {
+    noButton.classList.add("running");
+
+    const pad = 15;
+    const maxX = Math.max(pad, innerWidth - noButton.offsetWidth - pad);
+    const maxY = Math.max(pad, innerHeight - noButton.offsetHeight - pad);
+
+    noButton.style.left =
+        (pad + Math.random() * Math.max(0, maxX - pad)) + "px";
+    noButton.style.top =
+        (pad + Math.random() * Math.max(0, maxY - pad)) + "px";
+
+    document.getElementById("answer").textContent =
+        "No ka nang no ha 😝😝";
+}
+
+noButton.addEventListener("mouseenter", moveNo);
+noButton.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+    moveNo();
+}, { passive: false });
+
+function goBack() {
+    document.getElementById("flowerPage").style.display = "none";
+    document.getElementById("frontPage").style.display = "block";
+    document.getElementById("answer").textContent = "";
+    noButton.classList.remove("running");
+    noButton.style.left = "";
+    noButton.style.top = "";
+    envelope.classList.remove("open");
+    hint.textContent = "💌 Tap the envelope to open your letter 💌";
+}
+
+envelope.addEventListener("click", function() {
+    envelope.classList.toggle("open");
+
+    hint.textContent = envelope.classList.contains("open")
+        ? "💗 A bouquet, just for you 💗"
+        : "💌 Tap the envelope to open your letter 💌";
+
+    if (envelope.classList.contains("open")) {
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createHeart, i * 120);
+        }
+    }
+});
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "floating";
+
+    const symbols = ["🤎", "💕", "😝", "☕️", "✨"];
+    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (16 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 900);
+</script>
+
+</body>
+</html>
